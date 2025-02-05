@@ -24,9 +24,11 @@ With GutenGrab, you can:
 - Search for books by title, author, or subject (with optional language filtering).
 - View book details, including:
   - title, author, languages, subjects, and available formats.
-- List all available download formats (EPUB, MOBI, TXT, HTML, etc).
+- List all available download formats:
+  - EPUB, MOBI, TXT, HTML, etc.
 - Download books in EPUB format (for now).
-- Save and reuse search results, allowing users to download all books from the last search using  the 'all' argument'.
+- Save and reuse search results:
+  - download all books from the last search using  the 'all' argument'.
 
 ---
 
