@@ -17,9 +17,7 @@
 
 ### Welcome to GutenGrab
 
-GutenGrab: the Gutendex API / Project Gutenberg Terminal Interface
-
-This Bash script provides a command-line interface for accessing Project Gutenberg's book catalog via the Gutendex API.
+GutenGrab, the Gutendex API / Project Gutenberg Terminal Interface: access the project's book catalog via the Gutendex API, stright from your terminal emulator!
 
 With GutenGrab, you can:
 
