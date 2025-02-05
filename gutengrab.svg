@@ -25,7 +25,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.68155702"
      inkscape:cx="346.99958"
-     inkscape:cy="319.85585"
+     inkscape:cy="407.88957"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -70,7 +70,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -165,17 +164,17 @@
     <path
        id="path877"
        style="fill:none;stroke:#000000;stroke-width:12.7;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:normal"
-       d="M 239.10191,75.632851 V 195.30051 l -103.63524,59.83383 -103.63524,-59.83383 10e-6,-119.667669 103.63523,-59.83383 51.38528,29.66731"
+       d="M 31.83143,195.3005 V 75.63284 l 103.63524,-59.833829 103.63524,59.833835 -1e-5,119.667664 -103.63523,59.83383 -51.38528,-29.66731"
        sodipodi:nodetypes="ccccccc" />
     <path
-       id="path628"
-       style="fill:none;stroke:#000000;stroke-width:12.7;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:normal"
-       d="M 213.40926,90.466506 187.71662,105.30016 V 197.7767"
+       style="fill:none;stroke:#000000;stroke-width:12.7;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       d="m 220.13333,179.71769 -33.86667,19.55293 0,-93.13333"
+       id="path874"
        sodipodi:nodetypes="ccc" />
     <path
-       id="path635"
-       style="fill:none;stroke:#000000;stroke-width:12.7;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:normal"
-       d="m 162.02397,120.13381 -25.69264,14.83366 v 92.47654"
+       style="fill:none;stroke:#000000;stroke-width:12.7;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       d="m 135.46666,135.46668 33.86667,-19.55292 v 93.13332"
+       id="path588"
        sodipodi:nodetypes="ccc" />
   </g>
 </svg>
