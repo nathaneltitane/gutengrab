@@ -13,6 +13,28 @@
 
 - Initital release - WIP
 
+---
+
+### Welcome to GutenGrab
+
+GutenGrab: the Gutendex CLI - Project Gutenberg Terminal Interface
+
+This Bash script provides a command-line interface for accessing Project Gutenberg's book catalog via the Gutendex API.
+
+With GutenGrab, you can:
+
+- Search for books by title, author, or subject (with optional language filtering).
+- View book details, including title, author, languages, subjects, and available formats.
+- List all available download formats (e.g., EPUB, MOBI, TXT, HTML).
+- Download books in EPUB format by default (or other formats if modified).
+- Save and reuse search results, allowing users to download all books from the last search using "all".
+
+---
+
+### TL;DR
+
+---
+
 ### Reports:
 
 [Submit bug report or feature request](https://github.com/nathaneltitane/gutengrab/issues)
