@@ -63,55 +63,55 @@ api_url="https://gutendex.com/books"
 
 languages_list () {
 
-    echo
+	echo
 
-    frobulator.fwd "Listing known languages${marker_elp}"
-    echo
+	frobulator.fwd "Listing known languages${marker_elp}"
+	echo
 
-    frobulator.timeout
+	frobulator.timeout
 
-    IFS=$'\n'
+	IFS=$'\n'
 
-    # get all language names as an indexed array
+	# get all language names as an indexed array
 
-    languages_keys=("${!languages_list[@]}")
-    languages_count=${#languages_keys[@]}
+	languages_keys=("${!languages_list[@]}")
+	languages_count=${#languages_keys[@]}
 
 	# find longest langauge string
 
 	language_length=0
 
-    for language_string in "${languages_keys[@]}"
-    do
+	for language_string in "${languages_keys[@]}"
+	do
 		if [[ ${#language_string} -gt ${language_length} ]]
 		then
 			language_length=${#language_string}
 		fi
-    done
+	done
 
-    # calculate half of the array length and round up
+	# calculate half of the array length and round up
 
-    half=$(( (languages_count + 1) / 2 ))
+	half=$(( (languages_count + 1) / 2 ))
 
-    for (( i=0 ; i<half ; i++ ))
-    do
-        language_column_a="${languages_keys[i]}"
+	for (( i=0 ; i<half ; i++ ))
+	do
+		language_column_a="${languages_keys[i]}"
 
-        # avoid out-of-bounds error
+		# avoid out-of-bounds error
 
-        language_column_b="${languages_keys[i+half]:-}"
+		language_column_b="${languages_keys[i+half]:-}"
 
-        printf "%-*s %-4s    |    %-*s %-4s\n"															\
-            "$((language_length + 4))" "$language_column_a" "${languages_list[$language_column_a]}"		\
-            "$((language_length + 4))" "$language_column_b" "${languages_list[$language_column_b]}"
-    done
+		printf "%-*s %-4s    |    %-*s %-4s\n"														\
+		"$((language_length + 4))" "$language_column_a" "${languages_list[$language_column_a]}"		\
+		"$((language_length + 4))" "$language_column_b" "${languages_list[$language_column_b]}"
+	done
 
-    echo
+	echo
 
-    IFS=''
+	IFS=''
 
-    unset language
-}
+	unset language
+	}
 
 selections () {
 
