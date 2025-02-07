@@ -53,7 +53,7 @@ version="04-03-2025"
 
 # prompt ///////////////////////////////////////////////////////////////////////
 
-frobulator.script "Setting up ${script#*-}"
+frobulator.script "Welcome to the Gutendex teminal library!"
 
 # variables ////////////////////////////////////////////////////////////////////
 
@@ -63,29 +63,57 @@ api_url="https://gutendex.com/books"
 
 languages_list () {
 
-	echo
+    echo
 
-	frobulator.fwd "Listing known languages${marker_elp}"
-	echo
+    frobulator.fwd "Listing known languages${marker_elp}"
+    echo
 
-	frobulator.timeout
+    frobulator.timeout
 
-	IFS=$'\n'
+    IFS=$'\n'
 
-	printf "${marker_nul} %s\n" ${languages_list[@]}
+    # get all language names as an indexed array
 
-	echo
+    languages_keys=("${!languages_list[@]}")
+    languages_count=${#languages_keys[@]}
 
-	IFS=''
+	# find longest langauge string
 
-	unset language
+	language_length=0
 
+    for language_string in "${languages_keys[@]}"
+    do
+		if [[ ${#language_string} -gt ${language_length} ]]
+		then
+			language_length=${#language_string}
+		fi
+    done
+
+    # calculate half of the array length and round up
+
+    half=$(( (languages_count + 1) / 2 ))
+
+    for (( i=0 ; i<half ; i++ ))
+    do
+        language_column_a="${languages_keys[i]}"
+
+        # avoid out-of-bounds error
+
+        language_column_b="${languages_keys[i+half]:-}"
+
+        printf "%-*s %-4s    |    %-*s %-4s\n"															\
+            "$((language_length + 4))" "$language_column_a" "${languages_list[$language_column_a]}"		\
+            "$((language_length + 4))" "$language_column_b" "${languages_list[$language_column_b]}"
+    done
+
+    echo
+
+    IFS=''
+
+    unset language
 }
 
 selections () {
-
-	frobulator.sep
-	echo
 
 	echo "    [ 1 ] [S]earch for a book           [ author | title | subject ]"
 	echo "    [ 2 ] [G]et book details            [ id ]"
@@ -112,7 +140,7 @@ book_query () {
 
 	frobulator.ipt "Enter search query [ author / title / subject ]:"
 
-	read -r query
+	frobulator.read query
 
 	while [[ ! "${query}" =~ ^[A-Za-z0-9]+$ ]]
 	do
@@ -125,7 +153,7 @@ book_query () {
 
 		frobulator.ipt "Enter search query [ author / title / subject ]:"
 
-		read -r query
+		frobulator.read query
 
 	done
 
@@ -135,216 +163,222 @@ book_query () {
 
 	query=$(echo "${query}" | sed 's/ /%20/g')
 
-	languages_list=(
-		"Abkhazian / ab"
-		"Afar / aa"
-		"Afrikaans / af"
-		"Akan / ak"
-		"Albanian / sq"
-		"Amharic / am"
-		"Arabic / ar"
-		"Aragonese / an"
-		"Armenian / hy"
-		"Assamese / as"
-		"Avaric / av"
-		"Avestan / ae"
-		"Aymara / ay"
-		"Azerbaijani / az"
-		"Bambara / bm"
-		"Bashkir / ba"
-		"Basque / eu"
-		"Belarusian / be"
-		"Bengali / bn"
-		"Bislama / bi"
-		"Bosnian / bs"
-		"Breton / br"
-		"Bulgarian / bg"
-		"Burmese / my"
-		"Catalan, Valencian / ca"
-		"Chamorro / ch"
-		"Chechen / ce"
-		"Chichewa, Chewa, Nyanja / ny"
-		"Chinese / zh"
-		"Church&nbsp;Slavonic, Old&nbsp;Slavonic, Old&nbsp;Church&nbsp;Slavonic / cu"
-		"Chuvash / cv"
-		"Cornish / kw"
-		"Corsican / co"
-		"Cree / cr"
-		"Croatian / hr"
-		"Czech / cs"
-		"Danish / da"
-		"Divehi, Dhivehi, Maldivian / dv"
-		"Dutch, Flemish / nl"
-		"Dzongkha / dz"
-		"English / en"
-		"Esperanto / eo"
-		"Estonian / et"
-		"Ewe / ee"
-		"Faroese / fo"
-		"Fijian / fj"
-		"Finnish / fi"
-		"French / fr"
-		"Western Frisian / fy"
-		"Fulah / ff"
-		"Gaelic, Scottish&nbsp;Gaelic / gd"
-		"Galician / gl"
-		"Ganda / lg"
-		"Georgian / ka"
-		"German / de"
-		"Greek, Modern&nbsp;(1453–) / el"
-		"Kalaallisut, Greenlandic / kl"
-		"Guarani / gn"
-		"Gujarati / gu"
-		"Haitian, Haitian&nbsp;Creole / ht"
-		"Hausa / ha"
-		"Hebrew / he"
-		"Herero / hz"
-		"Hindi / hi"
-		"Hiri Motu / ho"
-		"Hungarian / hu"
-		"Icelandic / is"
-		"Ido / io"
-		"Igbo / ig"
-		"Indonesian / id"
-		"Interlingua (International Auxiliary Language Association) / ia"
-		"Interlingue, Occidental / ie"
-		"Inuktitut / iu"
-		"Inupiaq / ik"
-		"Irish / ga"
-		"Italian / it"
-		"Japanese / ja"
-		"Javanese / jv"
-		"Kannada / kn"
-		"Kanuri / kr"
-		"Kashmiri / ks"
-		"Kazakh / kk"
-		"Central Khmer / km"
-		"Kikuyu, Gikuyu / ki"
-		"Kinyarwanda / rw"
-		"Kyrgyz, Kirghiz / ky"
-		"Komi / kv"
-		"Kongo / kg"
-		"Korean / ko"
-		"Kuanyama, Kwanyama / kj"
-		"Kurdish / ku"
-		"Lao / lo"
-		"Latin / la"
-		"Latvian / lv"
-		"Limburgan, Limburger, Limburgish / li"
-		"Lingala / ln"
-		"Lithuanian / lt"
-		"Luba-Katanga / lu"
-		"Luxembourgish, Letzeburgesch / lb"
-		"Macedonian / mk"
-		"Malagasy / mg"
-		"Malay / ms"
-		"Malayalam / ml"
-		"Maltese / mt"
-		"Manx / gv"
-		"Maori / mi"
-		"Marathi / mr"
-		"Marshallese / mh"
-		"Mongolian / mn"
-		"Nauru / na"
-		"Navajo, Navaho / nv"
-		"North Ndebele / nd"
-		"South Ndebele / nr"
-		"Ndonga / ng"
-		"Nepali / ne"
-		"Norwegian / no"
-		"Norwegian Bokmål / nb"
-		"Norwegian Nynorsk / nn"
-		"Occitan / oc"
-		"Ojibwa / oj"
-		"Oriya / or"
-		"Oromo / om"
-		"Ossetian, Ossetic / os"
-		"Pali / pi"
-		"Pashto, Pushto / ps"
-		"Persian / fa"
-		"Polish / pl"
-		"Portuguese / pt"
-		"Punjabi, Panjabi / pa"
-		"Quechua / qu"
-		"Romanian, Moldavian, Moldovan / ro"
-		"Romansh / rm"
-		"Rundi / rn"
-		"Russian / ru"
-		"Northern Sami / se"
-		"Samoan / sm"
-		"Sango / sg"
-		"Sanskrit / sa"
-		"Sardinian / sc"
-		"Serbian / sr"
-		"Shona / sn"
-		"Sindhi / sd"
-		"Sinhala, Sinhalese / si"
-		"Slovak / sk"
-		"Slovenian / sl"
-		"Somali / so"
-		"Southern Sotho / st"
-		"Spanish, Castilian / es"
-		"Sundanese / su"
-		"Swahili / sw"
-		"Swati / ss"
-		"Swedish / sv"
-		"Tagalog / tl"
-		"Tahitian / ty"
-		"Tajik / tg"
-		"Tamil / ta"
-		"Tatar / tt"
-		"Telugu / te"
-		"Thai / th"
-		"Tibetan / bo"
-		"Tigrinya / ti"
-		"Tonga (Tonga Islands) / to"
-		"Tsonga / ts"
-		"Tswana / tn"
-		"Turkish / tr"
-		"Turkmen / tk"
-		"Twi / tw"
-		"Uighur, Uyghur / ug"
-		"Ukrainian / uk"
-		"Urdu / ur"
-		"Uzbek / uz"
-		"Venda / ve"
-		"Vietnamese / vi"
-		"Volapük / vo"
-		"Walloon / wa"
-		"Welsh / cy"
-		"Wolof / wo"
-		"Xhosa / xh"
-		"Sichuan Yi, Nuosu / ii"
-		"Yiddish / yi"
-		"Yoruba / yo"
-		"Zhuang, Chuang / za"
-		"Zulu / zu"
+	declare -A languages_list=(
+		["Abkhazian"]="ab"
+		["Afar"]="aa"
+		["Afrikaans"]="af"
+		["Akan"]="ak"
+		["Albanian"]="sq"
+		["Amharic"]="am"
+		["Arabic"]="ar"
+		["Aragonese"]="an"
+		["Armenian"]="hy"
+		["Assamese"]="as"
+		["Avaric"]="av"
+		["Avestan"]="ae"
+		["Aymara"]="ay"
+		["Azerbaijani"]="az"
+		["Bambara"]="bm"
+		["Bashkir"]="ba"
+		["Basque"]="eu"
+		["Belarusian"]="be"
+		["Bengali"]="bn"
+		["Bislama"]="bi"
+		["Bosnian"]="bs"
+		["Breton"]="br"
+		["Bulgarian"]="bg"
+		["Burmese"]="my"
+		["Catalan"]="ca"
+		["Chamorro"]="ch"
+		["Chechen"]="ce"
+		["Chichewa"]="ny"
+		["Chinese"]="zh"
+		["Church Slavonic"]="cu"
+		["Chuvash"]="cv"
+		["Cornish"]="kw"
+		["Corsican"]="co"
+		["Cree"]="cr"
+		["Croatian"]="hr"
+		["Czech"]="cs"
+		["Danish"]="da"
+		["Divehi"]="dv"
+		["Dutch"]="nl"
+		["Dzongkha"]="dz"
+		["English"]="en"
+		["Esperanto"]="eo"
+		["Estonian"]="et"
+		["Ewe"]="ee"
+		["Faroese"]="fo"
+		["Fijian"]="fj"
+		["Finnish"]="fi"
+		["French"]="fr"
+		["Fulah"]="ff"
+		["Gaelic, Scottish"]="gd"
+		["Galician"]="gl"
+		["Ganda"]="lg"
+		["Georgian"]="ka"
+		["German"]="de"
+		["Greek"]="el"
+		["Greenlandic"]="kl"
+		["Guarani"]="gn"
+		["Gujarati"]="gu"
+		["Haitian Creole"]="ht"
+		["Hausa"]="ha"
+		["Hebrew"]="he"
+		["Herero"]="hz"
+		["Hindi"]="hi"
+		["Hiri Motu"]="ho"
+		["Hungarian"]="hu"
+		["Icelandic"]="is"
+		["Ido"]="io"
+		["Igbo"]="ig"
+		["Indonesian"]="id"
+		["Interlingua"]="ia"
+		["Interlingue"]="ie"
+		["Inuktitut"]="iu"
+		["Inupiaq"]="ik"
+		["Irish"]="ga"
+		["Italian"]="it"
+		["Japanese"]="ja"
+		["Javanese"]="jv"
+		["Kannada"]="kn"
+		["Kanuri"]="kr"
+		["Kashmiri"]="ks"
+		["Kazakh"]="kk"
+		["Khmer"]="km"
+		["Kikuyu"]="ki"
+		["Kinyarwanda"]="rw"
+		["Komi"]="kv"
+		["Kongo"]="kg"
+		["Korean"]="ko"
+		["Kurdish"]="ku"
+		["Kwanyama"]="kj"
+		["Kyrgyz"]="ky"
+		["Lao"]="lo"
+		["Latin"]="la"
+		["Latvian"]="lv"
+		["Limburgish"]="li"
+		["Lingala"]="ln"
+		["Lithuanian"]="lt"
+		["Luba-Katanga"]="lu"
+		["Luxembourgish"]="lb"
+		["Macedonian"]="mk"
+		["Malagasy"]="mg"
+		["Malay"]="ms"
+		["Malayalam"]="ml"
+		["Maltese"]="mt"
+		["Manx"]="gv"
+		["Maori"]="mi"
+		["Marathi"]="mr"
+		["Marshallese"]="mh"
+		["Mongolian"]="mn"
+		["Nauru"]="na"
+		["Navajo"]="nv"
+		["Ndonga"]="ng"
+		["Nepali"]="ne"
+		["North Ndebele"]="nd"
+		["Northern Sami"]="se"
+		["Norwegian Bokmål"]="nb"
+		["Norwegian Nynorsk"]="nn"
+		["Norwegian"]="no"
+		["Occitan"]="oc"
+		["Ojibwa"]="oj"
+		["Oriya"]="or"
+		["Oromo"]="om"
+		["Ossetian"]="os"
+		["Pali"]="pi"
+		["Pashto"]="ps"
+		["Persian"]="fa"
+		["Polish"]="pl"
+		["Portuguese"]="pt"
+		["Punjabi"]="pa"
+		["Quechua"]="qu"
+		["Romanian"]="ro"
+		["Romansh"]="rm"
+		["Rundi"]="rn"
+		["Russian"]="ru"
+		["Samoan"]="sm"
+		["Sango"]="sg"
+		["Sanskrit"]="sa"
+		["Sardinian"]="sc"
+		["Serbian"]="sr"
+		["Shona"]="sn"
+		["Sindhi"]="sd"
+		["Sinhala"]="si"
+		["Slovak"]="sk"
+		["Slovenian"]="sl"
+		["Somali"]="so"
+		["South Ndebele"]="nr"
+		["Southern Sotho"]="st"
+		["Spanish"]="es"
+		["Sundanese"]="su"
+		["Swahili"]="sw"
+		["Swati"]="ss"
+		["Swedish"]="sv"
+		["Tagalog"]="tl"
+		["Tahitian"]="ty"
+		["Tajik"]="tg"
+		["Tamil"]="ta"
+		["Tatar"]="tt"
+		["Telugu"]="te"
+		["Thai"]="th"
+		["Tibetan"]="bo"
+		["Tigrinya"]="ti"
+		["Tonga"]="to"
+		["Tsonga"]="ts"
+		["Tswana"]="tn"
+		["Turkish"]="tr"
+		["Turkmen"]="tk"
+		["Twi"]="tw"
+		["Uighur"]="ug"
+		["Ukrainian"]="uk"
+		["Urdu"]="ur"
+		["Uzbek"]="uz"
+		["Venda"]="ve"
+		["Vietnamese"]="vi"
+		["Volapük"]="vo"
+		["Walloon"]="wa"
+		["Welsh"]="cy"
+		["Western Frisian"]="fy"
+		["Wolof"]="wo"
+		["Xhosa"]="xh"
+		["Yi"]="ii"
+		["Yiddish"]="yi"
+		["Yoruba"]="yo"
+		["Zhuang"]="za"
+		["Zulu"]="zu"
 	)
 
 	frobulator.ipt "Enter language - press Enter to skip [ en / fr / es / .. ]:"
 
-	read -r language
+	frobulator.read language
 
-	if [[ "${language}" = "?" ]]
-	then
-		languages_list
-
-		break
-	fi
-
-	while [[ ! "${language}" =~ ^[A-Za-z]+$ ]] || \
-          [[ ! "${language}" = "?"          ]]
+	while true
 	do
-		echo
-		frobulator.err "Invalid input type:"
-		echo
+		if [[ -z "${language}" ]]
+		then
+			break
+		fi
 
-		frobulator.wrn "Alphabetical characters only"
-		echo
+		if [[ "${language}" =~ ^[A-Za-z]+$ ]]
+		then
+			break
+		fi
+
+		if [[ "${language}" =~ ^[0-90-9]+$ ]]
+		then
+		    frobulator.err "Invalid input type:"
+			echo
+
+			frobulator.wrn "Alphabetical characters only"
+			echo
+		fi
+
+		languages_list
 
 		frobulator.ipt "Enter language - press Enter to skip [ en / fr / es / .. ]:"
 
-		read -r language
+		frobulator.read language
 
 	done
 
@@ -419,10 +453,6 @@ book_query () {
 				+ (.formats."application/epub+zip" // "N/A")
 				+ "\n"
 		'
-
-		frobulator.sep
-		echo
-
 	fi
 }
 
@@ -430,7 +460,7 @@ book_details () {
 
 	frobulator.ipt "Enter book identifier:"
 
-	read -r book_identifier
+	frobulator.read book_identifier
 
 	while [[ ! "${book_identifier}" =~ ^[0-9]+$ ]]
 	do
@@ -443,7 +473,7 @@ book_details () {
 
 		frobulator.ipt "Enter book identifier:"
 
-		read -r book_identifier
+		frobulator.read book_identifier
 
 	done
 
@@ -502,7 +532,7 @@ book_download () {
 	frobulator.ipt "Enter Book identifier(s) separated by spaces - Type 'all' to download last query results:"
 	echo
 
-	read -r -a book_identifiers
+	frobulator.read -a book_identifiers
 
 	if [ "${book_identifiers[0]}" = "all" ]
 	then
@@ -562,7 +592,7 @@ while true
 do
 	selections
 
-	read -r selection
+	frobulator.read selection
 
 	echo
 
