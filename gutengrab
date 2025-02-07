@@ -115,6 +115,12 @@ languages_list () {
 
 selections () {
 
+	frobulator.sep
+	echo
+
+	frobulator.inf "Selections"
+	echo
+
 	echo "    [ 1 ] [S]earch for a book           [ author | title | subject ]"
 	echo "    [ 2 ] [G]et book details            [ id ]"
 	echo "    [ 3 ] [D]ownload book(s) (epub)     [ id ]"
@@ -127,6 +133,9 @@ selections () {
 
 	frobulator.ipt "Selection:"
 
+	frobulator.read selection
+
+	echo
 }
 
 string_sanitize () {
@@ -591,10 +600,6 @@ book_download () {
 while true
 do
 	selections
-
-	frobulator.read selection
-
-	echo
 
 	case "${selection}"
 	in
