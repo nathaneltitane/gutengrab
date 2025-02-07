@@ -47,7 +47,7 @@ script=$(basename -- "${BASH_SOURCE[0]}")
 
 # version //////////////////////////////////////////////////////////////////////
 
-version="07-03-2025"
+version="04-03-2025"
 
 # usage ////////////////////////////////////////////////////////////////////////
 
@@ -358,7 +358,7 @@ book_query () {
 		["Zulu"]="zu"
 	)
 
-	frobulator.ipt "Enter language - press Enter to skip [ en / fr / es / .. ]:"
+	frobulator.ipt "Enter language - [ ↵ ] to skip [ en / fr / es / .. ]:"
 
 	frobulator.read language
 
@@ -385,7 +385,7 @@ book_query () {
 
 		languages_list
 
-		frobulator.ipt "Enter language - press Enter to skip [ en / fr / es / .. ]:"
+		frobulator.ipt "Enter language - [ ↵ ] to skip [ en / fr / es / .. ]:"
 
 		frobulator.read language
 
