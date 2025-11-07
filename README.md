@@ -37,6 +37,12 @@ With GutenGrab, you can:
 GutenGrab is a Bash terminal client for Gutendex — an API for Project Gutenberg’s public-domain book catalog.
 It lets you search, inspect, and download eBooks directly from your terminal, with built-in language filtering, rich book info display, and support for multi-book downloads.
 
+The script automatically installs and manages what it needs:
+
+- curl
+- jq
+- frobulator (auto-downloaded to ~/.local/bin/frobulator if missing)
+
 Clone the repository ↴
 
 ```
@@ -79,16 +85,6 @@ sudo install -m 755 gutengrab /usr/local/bin/gutengrab
 - Download EPUB books directly
 - Batch download using all to fetch every result from your last query
 - Interactive TUI with colorized feedback (uses frobulator)
-
----
-
-### Dependencies
-
-The script automatically installs and manages what it needs:
-
-- curl
-- jq
-- frobulator (auto-downloaded to ~/.local/bin/frobulator if missing)
 
 ---
 
