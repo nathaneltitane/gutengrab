@@ -2,16 +2,16 @@
 
 [![Donate](https://img.shields.io/badge/Paypal-2f343f.svg?style=for-the-badge&logo=paypal&label=Donate)](https://www.paypal.com/donate?hosted_button_id=ZW3CDCANHJCWJ)
 
-[[ GutenGrab // Project Page ]](https://github.com/nathaneltitane/gutengrab) [ Version // 04-02-2025 ]
+[[ GutenGrab // Project Page ]](https://github.com/nathaneltitane/gutengrab) [ Version // 11-07-2025 ]
 
 
 ---
 
 ### NOTICE
 
-04-02-2025 ↴
+11-07-2025 ↴
 
-- Initital release - WIP
+- Update readme
 
 ---
 
@@ -170,7 +170,7 @@ Uses the public [Gutendex API](https://gutendex.com/books) for:
 
 ---
 
-[[ GutenGrab // Project Page ]](https://github.com/nathaneltitane/gutengrab) [ Version // 04-02-2025 ]
+[[ GutenGrab // Project Page ]](https://github.com/nathaneltitane/gutengrab) [ Version // 11-07-2025 ]
 
 ### Enjoying Dextop? Buy me a coffee to show your appreciation!
 
