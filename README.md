@@ -134,7 +134,7 @@ You can download:
   Enter Book identifier(s): 1342 84
   ```
 
-* Or download all from your last search:
+* All books from your last search:
 
   ```
   Enter Book identifier(s): all
@@ -143,7 +143,7 @@ You can download:
 Downloaded files are saved in your current directory as:
 
 ```
-Author - Title.epub
+<Author> - <Title>.epub
 ```
 
 ---
