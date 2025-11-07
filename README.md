@@ -154,9 +154,9 @@ Uses the public [Gutendex API](https://gutendex.com/books) for:
 
 - `/books/?search={query}`
 - `/books/{id}/`
-* Supports all [ISO-639-1 language codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
-* Integrates seamlessly with frobulator for interface styling and error handling
-* Tested on Debian-based systems (Termux compatible)
+- Supports all [ISO-639-1 language codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
+- Integrates seamlessly with frobulator for interface styling and error handling
+- Tested on Debian-based systems (Termux compatible)
 
 ---
 
