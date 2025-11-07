@@ -37,25 +37,25 @@ With GutenGrab, you can:
 GutenGrab is a Bash terminal client for Gutendex — an API for Project Gutenberg’s public-domain book catalog.
 It lets you search, inspect, and download eBooks directly from your terminal, with built-in language filtering, rich book info display, and support for multi-book downloads.
 
-Clone the repository
+Clone the repository ↴
 
 ```
 git clone https://github.com/nathaneltitane/gutengrab.git
 ```
 
-Move into the directory
+Move into the directory ↴
 
 ```
 cd gutengrab
 ```
 
-Make it executable
+Make it executable ↴
 
 ```
 chmod +x gutengrab
 ```
 
-Run it
+Run it ↴
 
 ```
 bash gutengrab
