@@ -68,9 +68,7 @@ Run it ↴
 bash gutengrab
 ```
 
-Note:
-
-can also be installed globally:
+Or install globally ↴
 
 ```
 sudo install -m 755 gutengrab /usr/local/bin/gutengrab
