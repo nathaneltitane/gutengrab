@@ -104,8 +104,8 @@ Once launched, GutenGrab presents a menu of actions:
 Enter a keyword (alphanumeric), for example:
 
 ```
-Search query: pride
-Language: en
+[ + ] Enter search query [ author / title / subject ]: pride
+[ + ] Enter language - [ ↵ ] to skip [ en / fr / es / .. ]: en
 ```
 
 Results are fetched from Gutendex and displayed in a readable format with IDs, titles, authors, and EPUB links.
@@ -117,7 +117,7 @@ Results are fetched from Gutendex and displayed in a readable format with IDs, t
 To fetch detailed info about a book:
 
 ```
-Enter book identifier: 1342
+[ + ] Enter book identifier: 1342
 ```
 
 Outputs title, author, subjects, and available download formats.
@@ -131,13 +131,13 @@ You can download:
 - One or multiple books by ID:
 
   ```
-  Enter Book identifier(s): 1342 84
+  [ + ] Enter Book identifier(s): 1342 84
   ```
 
 - All books from your last search:
 
   ```
-  Enter Book identifier(s): all
+  [ + ] Enter Book identifier(s): all
   ```
 
 Downloaded files are saved in your current directory as:
