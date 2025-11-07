@@ -128,13 +128,13 @@ Outputs title, author, subjects, and available download formats.
 
 You can download:
 
-* One or multiple books by ID:
+- One or multiple books by ID:
 
   ```
   Enter Book identifier(s): 1342 84
   ```
 
-* All books from your last search:
+- All books from your last search:
 
   ```
   Enter Book identifier(s): all
@@ -152,13 +152,8 @@ Downloaded files are saved in your current directory as:
 
 Uses the public [Gutendex API](https://gutendex.com/books) for:
 
-* `/books/?search={query}`
-* `/books/{id}/`
-
----
-
-## Notes
-
+- `/books/?search={query}`
+- `/books/{id}/`
 * Supports all [ISO-639-1 language codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 * Integrates seamlessly with frobulator for interface styling and error handling
 * Tested on Debian-based systems (Termux compatible)
