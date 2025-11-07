@@ -34,6 +34,97 @@ With GutenGrab, you can:
 
 ### TL;DR
 
+GutenGrab is a Bash terminal client for Gutendex — an API for Project Gutenberg’s public-domain book catalog.
+It lets you search, inspect, and download eBooks directly from your terminal, with built-in language filtering, rich book info display, and support for multi-book downloads.
+
+---
+
+### Features
+
+- Search books by title, author, or subject
+
+- Filter by language (e.g. en, fr, es)
+
+- View details: title, author, subjects, and formats
+
+- Download EPUB books directly
+
+- Batch download using all to fetch every result from your last query
+
+- Interactive TUI with colorized feedback (uses frobulator)
+
+---
+
+### Dependencies
+
+The script automatically installs and manages what it needs:
+
+- curl
+
+- jq
+
+- frobulator (auto-downloaded to ~/.local/bin/frobulator if missing)
+
+---
+
+### Usage
+
+Once launched, GutenGrab presents a menu of actions:
+
+```
+[ 1 ] [S]earch for a book           [ author | title | subject ]
+[ 2 ] [G]et book details            [ id ]
+[ 3 ] [D]ownload book(s) (epub)     [ id ]
+[ 4 ] [E]xit
+```
+
+### Search
+
+Enter a keyword (alphanumeric), for example:
+
+```
+Search query: pride
+Language: en
+```
+
+Results are fetched from Gutendex and displayed in a readable format with IDs, titles, authors, and EPUB links.
+
+---
+
+### Book Details
+
+To fetch detailed info about a book:
+
+```
+Enter book identifier: 1342
+```
+
+Outputs title, author, subjects, and available download formats.
+
+---
+
+### Download Book(s)
+
+You can download:
+
+* One or multiple books by ID:
+
+  ```
+  Enter Book identifier(s): 1342 84
+  ```
+
+* Or download all from your last search:
+
+  ```
+  Enter Book identifier(s): all
+  ```
+
+Downloaded files are saved in your current directory as:
+
+```
+Author - Title.epub
+```
+
 ---
 
 ### Reports:
