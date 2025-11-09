@@ -34,10 +34,6 @@ With GutenGrab, you can:
 
 ### TL;DR
 
-GutenGrab is a Bash terminal client for Gutendex — an API for Project Gutenberg’s public-domain book catalog.
-
-It lets you search, inspect, and download eBooks directly from your terminal, with built-in language filtering, rich book info display, and support for multi-book downloads.
-
 The script automatically installs and manages what it needs:
 
 - curl
