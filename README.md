@@ -16,7 +16,7 @@
 
 ### Welcome to GutenGrab
 
-GutenGrab, the Gutendex API / Project Gutenberg Terminal Interface: access the project's book catalog via the Gutendex API, stright from your terminal emulator!
+GutenGrab, the Project Gutenberg Terminal Interface: access the project's book catalog via the Gutendex API, stright from your terminal emulator!
 
 With GutenGrab, you can:
 
