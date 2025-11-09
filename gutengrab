@@ -123,7 +123,7 @@ selections () {
 
 	echo "    [ 1 ] [S]earch for a book           [ author | title | subject ]"
 	echo "    [ 2 ] [G]et book details            [ id ]"
-	echo "    [ 3 ] [D]ownload book(s) (epub)     [ id ]"
+	echo "    [ 3 ] [D]ownload book(s) [epub]     [ id  | all ]"
 	echo
 	echo "    [ 4 ] [E]xit"
 	echo
