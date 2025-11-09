@@ -633,7 +633,8 @@ do
 		;;
 
 		*)
-			echo "Invalid choice. Try again."
+			frobulator.wrn "Invalid selection. Use selection numbers or [b]racketed pointers to access features."
+			echo
 		;;
 
 	esac
