@@ -69,7 +69,7 @@ version="2026-10-04"
 
 # usage ────────────────────────────────────────────────────────────────────────
 
-while (($#))
+while (( $# ))
 do
 	case "${1}"
 	in
@@ -151,9 +151,9 @@ languages_list () {
 
 	# calculate half of the array length and round up
 
-	count_rows=$(( (count_languages + 1) / 2 ))
+	count_rows=$(( ( count_languages + 1 ) / 2 ))
 
-	for (( i=0 ; i<count_rows ; i++ ))
+	for (( i = 0 ; i < count_rows ; i ++ ))
 	do
 		name_language_left="${list_names_language[i]}"
 
@@ -161,9 +161,9 @@ languages_list () {
 
 		name_language_right="${list_names_language[i+count_rows]:-}"
 
-		printf "%-*s %-4s    |    %-*s %-4s\n"														\
-		"$((length_language_longest + 4))" "$name_language_left" "${list_languages[$name_language_left]}"		\
-		"$((length_language_longest + 4))" "$name_language_right" "${list_languages[$name_language_right]}"
+		printf "%-*s %-4s    |    %-*s %-4s\n"																	\
+		"$(( length_language_longest + 4 ))" "$name_language_left" "${list_languages[$name_language_left]}"		\
+		"$(( length_language_longest + 4 ))" "$name_language_right" "${list_languages[$name_language_right]}"
 	done
 
 	echo
@@ -646,7 +646,6 @@ book_download () {
 		frobulator.inf "Download complete" "[ ${file_book} ]"
 	done
 }
-
 
 while true
 do
