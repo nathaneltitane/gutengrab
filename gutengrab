@@ -118,7 +118,7 @@ frobulator.script "Welcome to the Gutendex teminal library!"
 
 # variables ────────────────────────────────────────────────────────────────────
 
-api_url="https://gutendex.com/books"
+url_api="https://gutendex.com/books"
 
 # functions ────────────────────────────────────────────────────────────────────
 
@@ -134,43 +134,43 @@ languages_list () {
 
 	# get all language names as an indexed array
 
-	languages_keys=("${!languages_list[@]}")
-	languages_count=${#languages_keys[@]}
+	list_names_language=("${!list_languages[@]}")
+	count_languages=${#list_names_language[@]}
 
 	# find longest langauge string
 
-	language_length=0
+	length_language_longest=0
 
-	for language_string in "${languages_keys[@]}"
+	for name_language in "${list_names_language[@]}"
 	do
-		if [[ ${#language_string} -gt ${language_length} ]]
+		if [[ ${#name_language} -gt ${length_language_longest} ]]
 		then
-			language_length=${#language_string}
+			length_language_longest=${#name_language}
 		fi
 	done
 
 	# calculate half of the array length and round up
 
-	half=$(( (languages_count + 1) / 2 ))
+	count_rows=$(( (count_languages + 1) / 2 ))
 
-	for (( i=0 ; i<half ; i++ ))
+	for (( i=0 ; i<count_rows ; i++ ))
 	do
-		language_column_a="${languages_keys[i]}"
+		name_language_left="${list_names_language[i]}"
 
 		# avoid out-of-bounds error
 
-		language_column_b="${languages_keys[i+half]:-}"
+		name_language_right="${list_names_language[i+count_rows]:-}"
 
 		printf "%-*s %-4s    |    %-*s %-4s\n"														\
-		"$((language_length + 4))" "$language_column_a" "${languages_list[$language_column_a]}"		\
-		"$((language_length + 4))" "$language_column_b" "${languages_list[$language_column_b]}"
+		"$((length_language_longest + 4))" "$name_language_left" "${list_languages[$name_language_left]}"		\
+		"$((length_language_longest + 4))" "$name_language_right" "${list_languages[$name_language_right]}"
 	done
 
 	echo
 
 	IFS=''
 
-	unset language
+	unset code_language
 	}
 
 selections () {
@@ -227,7 +227,7 @@ book_query () {
 
 	query=$(echo "${query}" | sed 's/ /%20/g')
 
-	declare -A languages_list=(
+	declare -A list_languages=(
 		["Abkhazian"]="ab"
 		["Afar"]="aa"
 		["Afrikaans"]="af"
@@ -415,21 +415,21 @@ book_query () {
 
 	frobulator.ipt "Enter language - [ ↵ ] to skip [ en / fr / es / .. ]:"
 
-	frobulator.read language
+	frobulator.read code_language
 
 	while true
 	do
-		if [[ -z "${language}" ]]
+		if [[ -z "${code_language}" ]]
 		then
 			break
 		fi
 
-		if [[ "${language}" =~ ^[A-Za-z]+$ ]]
+		if [[ "${code_language}" =~ ^[A-Za-z]+$ ]]
 		then
 			break
 		fi
 
-		if [[ "${language}" =~ ^[0-90-9]+$ ]]
+		if [[ "${code_language}" =~ ^[0-90-9]+$ ]]
 		then
 		    frobulator.err "Invalid input type:"
 
@@ -440,37 +440,37 @@ book_query () {
 
 		frobulator.ipt "Enter language - [ ↵ ] to skip [ en / fr / es / .. ]:"
 
-		frobulator.read language
+		frobulator.read code_language
 
 	done
 
 	echo
 
-	if [ -n "${language}" ]
+	if [ -n "${code_language}" ]
 	then
-		api_call="${api_url}/?search=${query}&languages=${language}"
+		url_search="${url_api}/?search=${query}&languages=${code_language}"
 	else
-		api_call="${api_url}/?search=${query}"
+		url_search="${url_api}/?search=${query}"
 	fi
 
-	results=$(curl -s "${api_call}") &
+	json_search=$(curl -s "${url_search}") &
 
 	frobulator.process "Querying"
 
-	if [ -n "${language}" ]
+	if [ -n "${code_language}" ]
 	then
-		search_results_last=(
-			$(echo "${results}" | jq -r '
+		list_ids_search_last=(
+			$(echo "${json_search}" | jq -r '
 									.results[].id |
 									select(.languages[] |
-									contains("'"${language}"'"))
+									contains("'"${code_language}"'"))
 								'
 			)
 		)
 
 	else
-		search_results_last=(
-			$(echo "${results}" | jq -r '
+		list_ids_search_last=(
+			$(echo "${json_search}" | jq -r '
 									.results[].id
 								'
 			)
@@ -478,20 +478,20 @@ book_query () {
 
 	fi
 
-	count=$(curl -s "${api_call}" | jq -r '.count')
+	count_matches=$(curl -s "${url_search}" | jq -r '.count')
 
-	if [ "${count}" -eq 0 ]
+	if [ "${count_matches}" -eq 0 ]
 	then
-		frobulator.err "Matches" "[ ${count} ]"
+		frobulator.err "Matches" "[ ${count_matches} ]"
 	else
-		frobulator.scs "Matches" "[ ${count} ]"
+		frobulator.scs "Matches" "[ ${count_matches} ]"
 
 		frobulator.sep
 
-		curl -s "${api_call}" | jq -r '
+		curl -s "${url_search}" | jq -r '
 									.results[] |
 									select(.languages[] |
-									contains("'"${language}"'")) |
+									contains("'"${code_language}"'")) |
 									"Identifier:"
 									+ " "
 									+ (.id|tostring)
@@ -527,9 +527,9 @@ book_details () {
 
 	frobulator.ipt "Enter book identifier:"
 
-	frobulator.read book_identifier
+	frobulator.read id_book
 
-	while [[ ! "${book_identifier}" =~ ^[0-9]+$ ]]
+	while [[ ! "${id_book}" =~ ^[0-9]+$ ]]
 	do
 		echo
 		frobulator.err "Invalid input type:"
@@ -538,7 +538,7 @@ book_details () {
 
 		frobulator.ipt "Enter book identifier:"
 
-		frobulator.read book_identifier
+		frobulator.read id_book
 
 	done
 
@@ -546,7 +546,7 @@ book_details () {
 
 	frobulator.sep
 
-	formats=$(curl -s "${api_url}/${book_identifier}/" | jq -r '
+	text_formats=$(curl -s "${url_api}/${id_book}/" | jq -r '
 															.formats | to_entries[] |
 															"    - "
 															+ (.key | sub("^application/"; ""))
@@ -557,7 +557,7 @@ book_details () {
 														'
 			)
 
-	curl -s "${api_url}/${book_identifier}/" | jq -r '
+	curl -s "${url_api}/${id_book}/" | jq -r '
 													"\n"
 													+ "\n"
 													+ "Title:"
@@ -585,7 +585,7 @@ book_details () {
 
 	frobulator.process "Fetching details"
 
-	echo "${formats}"
+	echo "${text_formats}"
 
 	echo
 
@@ -596,37 +596,37 @@ book_download () {
 	frobulator.ipt "Enter Book identifier(s) separated by spaces - Type 'all' to download last query results:"
 	echo
 
-	frobulator.read -a book_identifiers
+	frobulator.read -a list_ids_book
 
-	if [ "${book_identifiers[0]}" = "all" ]
+	if [ "${list_ids_book[0]}" = "all" ]
 	then
-		if [ ${#search_results_last[@]} -eq 0 ]
+		if [ ${#list_ids_search_last[@]} -eq 0 ]
 		then
 			frobulator.err "No previous search results stored or found."
 
 			return
 		fi
 
-		book_identifiers=("${search_results_last[@]}")
+		list_ids_book=("${list_ids_search_last[@]}")
 	fi
 
-	for book_identifier in "${book_identifiers[@]}"
+	for id_book in "${list_ids_book[@]}"
 	do
-		frobulator.inf "Fetching book information" " [ ${book_identifier} ]"
+		frobulator.inf "Fetching book information" " [ ${id_book} ]"
 
-		response=$(curl -s "${api_url}/${book_identifier}/") &
+		json_book=$(curl -s "${url_api}/${id_book}/") &
 
-		frobulator.process "Fetching book information" " [ ${book_identifier} ]"
+		frobulator.process "Fetching book information" " [ ${id_book} ]"
 		echo
 
-		epub_url=$(echo "${response}" | jq -r '.formats."application/epub+zip"')
+		url_epub=$(echo "${json_book}" | jq -r '.formats."application/epub+zip"')
 
-		title=$(echo "${response}" | jq -r '.title')
-		author=$(echo "${response}" | jq -r '.authors[0].name')
+		title=$(echo "${json_book}" | jq -r '.title')
+		author=$(echo "${json_book}" | jq -r '.authors[0].name')
 
-		if [ "${epub_url}" = "null" ]
+		if [ "${url_epub}" = "null" ]
 		then
-			frobulator.err "No EPUB version available for book" "[ ${book_identifier} ]"
+			frobulator.err "No EPUB version available for book" "[ ${id_book} ]"
 
 			continue
 		fi
@@ -636,14 +636,14 @@ book_download () {
 
 		extension="epub"
 
-		file="${author} - ${title}.${extension}"
+		file_book="${author} - ${title}.${extension}"
 
-		curl -s -L -o "${file}" "${epub_url}" &
+		curl -s -L -o "${file_book}" "${url_epub}" &
 
-		frobulator.progress "Downloading" "[ ${file} ]"
+		frobulator.progress "Downloading" "[ ${file_book} ]"
 		echo
 
-		frobulator.inf "Download complete" "[ ${file} ]"
+		frobulator.inf "Download complete" "[ ${file_book} ]"
 	done
 }
 
