@@ -464,9 +464,7 @@ book_query () {
 
 	# response written to file - a background assignment never reaches the script
 
-	curl -s "${url_search}" > "${file_json_search}" &
-
-	frobulator.process "Querying"
+	frobulator.background process "Querying" -- curl -s -o "${file_json_search}" "${url_search}"
 
 	json_search="$(< "${file_json_search}")"
 
@@ -571,7 +569,11 @@ book_details () {
 														'
 			)
 
-	curl -s "${url_api}/${id_book}/" | jq -r '
+	# details fetched in the background to a file - shown once they arrive
+
+	frobulator.background process "Fetching details" -- curl -s -o "${file_json_book}" "${url_api}/${id_book}/"
+
+	jq -r '
 													"\n"
 													+ "\n"
 													+ "Title:"
@@ -595,9 +597,7 @@ book_details () {
 													+ "\n"
 													+ "Formats:"
 													+ "\n"
-												' | fold -s -w 80 &
-
-	frobulator.process "Fetching details"
+												' "${file_json_book}" | fold -s -w 80
 
 	echo "${text_formats}"
 
@@ -628,9 +628,7 @@ book_download () {
 	do
 		frobulator.inf "Fetching book information" " [ ${id_book} ]"
 
-		curl -s "${url_api}/${id_book}/" > "${file_json_book}" &
-
-		frobulator.process "Fetching book information" " [ ${id_book} ]"
+		frobulator.background process "Fetching book information" " [ ${id_book} ]" -- curl -s -o "${file_json_book}" "${url_api}/${id_book}/"
 
 		json_book="$(< "${file_json_book}")"
 		echo
@@ -654,9 +652,7 @@ book_download () {
 
 		file_book="${author} - ${title}.${extension}"
 
-		curl -s -L -o "${file_book}" "${url_epub}" &
-
-		frobulator.progress "Downloading" "[ ${file_book} ]"
+		frobulator.background "Downloading" "[ ${file_book} ]" -- curl -s -L -o "${file_book}" "${url_epub}"
 		echo
 
 		frobulator.inf "Download complete" "[ ${file_book} ]"
