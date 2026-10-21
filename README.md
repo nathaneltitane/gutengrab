@@ -71,6 +71,12 @@ Or install globally ↴
 sudo install -m 755 gutengrab /usr/local/bin/gutengrab
 ```
 
+Uninstall - every installed copy removed - downloaded books kept ↴
+
+```
+bash gutengrab -u
+```
+
 ---
 
 ### Features

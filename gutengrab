@@ -73,15 +73,21 @@ while (( $# ))
 do
 	case "${1}"
 	in
+		-u|--uninstall)
+			option="uninstall"
+		;;
+
 		-h|--help)
 			echo
-			echo -e "Usage: ./${script} -h"
+			echo -e "Usage: ./${script} -u | -h"
 			echo
 			echo -e "Options:"
 			echo
-			echo -e "-h, --help    Show [h]elp and usage information."
+			echo -e "-u, --uninstall    Run [u]ninstallation of ${script} - installed copies removed."
 			echo
-			echo -e "'${script}'   [ Version // ${version} ]"
+			echo -e "-h, --help         Show [h]elp and usage information."
+			echo
+			echo -e "'${script}'        [ Version // ${version} ]"
 			echo
 
 			exit
@@ -96,7 +102,7 @@ do
 
 		*)
 			echo
-			echo -e "Usage: ./${script} -h"
+			echo -e "Usage: ./${script} -u | -h"
 			echo
 			echo -e "Unknown option: '${script} ${1}':"
 			echo -e "Type './${script} -h' for help and usage information."
@@ -111,6 +117,42 @@ do
 	shift
 
 done
+
+# uninstall ────────────────────────────────────────────────────────────────────
+
+# installed copies of the script removed - files it made and packages kept
+
+if [ "${option}" = "uninstall" ]
+then
+	count_removed=0
+
+	# every copy of the script on the search path - user and system wide
+
+	mapfile -t list_paths_installed < <(type -a -P "${script}")
+
+	for path_installed in "${list_paths_installed[@]}"
+	do
+		directory_installed="${path_installed%/*}"
+
+		if [ -w "${directory_installed}" ]
+		then
+			frobulator.delete "${directory_installed}" "${script}"
+
+			count_removed=$(( count_removed + 1 ))
+		else
+			frobulator.wrn "Superuser needed to remove" "[ sudo rm ${path_installed} ]"
+		fi
+	done
+
+	if [ "${count_removed}" -eq 0 ]
+	then
+		frobulator.inf "No installed copy found" "[ ${script} ]"
+	else
+		frobulator.scs "Uninstalled" "[ ${script} ]"
+	fi
+
+	exit
+fi
 
 # prompt ───────────────────────────────────────────────────────────────────────
 
