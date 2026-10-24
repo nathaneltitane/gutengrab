@@ -190,4 +190,4 @@ Uses the public [Gutendex API](https://gutendex.com/books) for:
 
 [[ GutenGrab // Project Page ]](https://github.com/nathaneltitane/gutengrab) [ Version // 2025-11-07 ]
 
-### Enjoying GutenGrab? Show your appreciation with a PayPal donation! [![Donate](https://img.shields.io/badge/Paypal-2f343f.svg?style=for-the-badge&logo=paypal&label=Donate)](https://www.paypal.com/donate?hosted_button_id=ZW3CDCANHJCWJ)
+### [![Donate](https://img.shields.io/badge/Paypal-2f343f.svg?style=for-the-badge&logo=paypal&label=Donate)](https://www.paypal.com/donate?hosted_button_id=ZW3CDCANHJCWJ) Enjoying GutenGrab? Show your appreciation with a PayPal donation!
