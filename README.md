@@ -16,7 +16,7 @@ Useful? Star the repository - it helps others find it.
 
 ### NOTICE
 
-11-07-2025 ↴
+2025-11-07 ↴
 
 - Update readme
 
