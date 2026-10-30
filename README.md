@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/nathaneltitane/gutengrab/main/gutengrab.svg" alt="gutengrab"><br><b>Project Gutenberg terminal interface</b><br>Grab a book, straight from your terminal</p>
+<p align="center"><img src="https://raw.githubusercontent.com/nathaneltitane/gutengrab/main/gutengrab.svg" alt="gutengrab"><br><b>Project Gutenberg terminal interface</b><br>GRAB A BOOK. ANY BOOK.</p>
 
 ---
 
