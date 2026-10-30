@@ -1,4 +1,6 @@
-![gutengrab](https://raw.githubusercontent.com/nathaneltitane/gutengrab/main/gutengrab.svg)
+<p align="center"><img src="https://raw.githubusercontent.com/nathaneltitane/gutengrab/main/gutengrab.svg" alt="gutengrab"><br><b>Project Gutenberg terminal interface</b><br>Grab a book, straight from your terminal</p>
+
+---
 
 [![Donate](https://img.shields.io/badge/Paypal-2f343f.svg?style=for-the-badge&logo=paypal&label=Donate)](https://www.paypal.com/donate?hosted_button_id=ZW3CDCANHJCWJ)<br>
 Show your appreciation with a PayPal donation!
@@ -12,9 +14,12 @@ Useful? Star the repository - it helps others find it.
 
 ### NOTICE
 
-2025-11-07 ↴
+  <details open>
+  <summary>2025-11-07</summary>
 
-- Update readme
+  - Update readme
+
+  </details>
 
 ---
 
